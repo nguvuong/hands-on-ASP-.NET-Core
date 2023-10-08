@@ -20,6 +20,8 @@ public class HomeController : Controller
 
     public IActionResult Privacy()
     {
+        ViewBag.Message = "Security is everybody's business.";
+        ViewBag.MyFavoriteColor = "Green";
         return View();
     }
 
