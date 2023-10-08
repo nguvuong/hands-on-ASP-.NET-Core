@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Full_stackJokesWebApp.Data;
 using Full_stackJokesWebApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Full_stackJokesWebApp.Controllers
 {
@@ -37,6 +38,7 @@ namespace Full_stackJokesWebApp.Controllers
             return View("index", await _context.Joke.Where( j => j.JokeQuestion.Contains(SearchPhrase)).ToListAsync());
         }
 
+        [Authorize]
         // GET: Jokes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -55,15 +57,18 @@ namespace Full_stackJokesWebApp.Controllers
             return View(joke);
         }
 
-        // GET: Jokes/Create
+        // GET: Jokes/
+        [Authorize]
         public IActionResult Create()
         {
             return View();
         }
 
+
         // POST: Jokes/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,JokeQuestion,JokeAnswer")] Joke joke)
@@ -96,6 +101,7 @@ namespace Full_stackJokesWebApp.Controllers
         // POST: Jokes/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,JokeQuestion,JokeAnswer")] Joke joke)
@@ -128,6 +134,7 @@ namespace Full_stackJokesWebApp.Controllers
             return View(joke);
         }
 
+        [Authorize]
         // GET: Jokes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -146,6 +153,7 @@ namespace Full_stackJokesWebApp.Controllers
             return View(joke);
         }
 
+        [Authorize]
         // POST: Jokes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
